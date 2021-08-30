@@ -17,12 +17,14 @@ export const patent = ({ id }) => {
 }
 
 export const createPatent = ({ input }) => {
+  requireAuth()
   return db.patent.create({
     data: input,
   })
 }
 
 export const updatePatent = ({ id, input }) => {
+  requireAuth()
   return db.patent.update({
     data: input,
     where: { id },
@@ -30,6 +32,7 @@ export const updatePatent = ({ id, input }) => {
 }
 
 export const deletePatent = ({ id }) => {
+  requireAuth()
   return db.patent.delete({
     where: { id },
   })

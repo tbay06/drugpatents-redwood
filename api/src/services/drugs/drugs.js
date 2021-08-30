@@ -17,12 +17,14 @@ export const drug = ({ id }) => {
 }
 
 export const createDrug = ({ input }) => {
+  requireAuth()
   return db.drug.create({
     data: input,
   })
 }
 
 export const updateDrug = ({ id, input }) => {
+  requireAuth()
   return db.drug.update({
     data: input,
     where: { id },
@@ -30,6 +32,7 @@ export const updateDrug = ({ id, input }) => {
 }
 
 export const deleteDrug = ({ id }) => {
+  requireAuth()
   return db.drug.delete({
     where: { id },
   })
