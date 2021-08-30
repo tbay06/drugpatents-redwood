@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/functions/graphql.js"],
+  "sourcesContent": ["import {\r\n  createGraphQLHandler,\r\n  makeMergedSchema,\r\n  makeServices,\r\n} from '@redwoodjs/api'\r\n\r\nimport schemas from 'src/graphql/**/*.{js,ts}'\r\nimport services from 'src/services/**/*.{js,ts}'\r\n\r\nimport { getCurrentUser } from 'src/lib/auth'\r\nimport { db } from 'src/lib/db'\r\nimport { logger } from 'src/lib/logger'\r\n\r\nexport const handler = createGraphQLHandler({\r\n  loggerConfig: { logger, options: {} },\r\n  getCurrentUser,\r\n  schema: makeMergedSchema({\r\n    schemas,\r\n    services: makeServices({ services }),\r\n  }),\r\n  onException: () => {\r\n    // Disconnect from your database with an unhandled exception.\r\n    db.$disconnect()\r\n  },\r\n})\r\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;;;iBAIO;AAKP,kBAAA;AACA,gBAAA;AACA,oBAAA;;;AAEO,MAAM,UAAU,qCAAqB;EAC1C,cAAc;IAAE;IAAQ,SAAS;;EACjC;EACA,QAAQ,iCAAiB;IACvB;IACA,UAAU,6BAAa;MAAE;;;EAE3B,aAAa,MAAM;AAEjB,iBAAG;;;",
+  "names": []
+}

@@ -1,0 +1,98 @@
+input CreateDrugInput {
+  medicinalIngredient: String
+  brandName: String
+  routeOfAdmin: String
+  strengthPerUnit: String
+  humanOrVet: String
+  therapeuticClass: String
+  dosageForm: String
+  din: String
+}
+
+input CreatePatentInput {
+  drugId: String!
+  patentNum: String!
+  filingDate: DateTime
+  dateGranted: DateTime
+  expirationDate: DateTime
+  companyName: String
+}
+
+scalar Date
+
+scalar DateTime
+
+type Drug {
+  id: String!
+  medicinalIngredient: String
+  brandName: String
+  routeOfAdmin: String
+  strengthPerUnit: String
+  humanOrVet: String
+  therapeuticClass: String
+  dosageForm: String
+  din: String
+  createdAt: DateTime!
+  Patent: [Patent]!
+}
+
+scalar JSON
+
+scalar JSONObject
+
+type Mutation {
+  createDrug(input: CreateDrugInput!): Drug!
+  createPatent(input: CreatePatentInput!): Patent!
+  deleteDrug(id: String!): Drug!
+  deletePatent(id: Int!): Patent!
+  updateDrug(id: String!, input: UpdateDrugInput!): Drug!
+  updatePatent(id: Int!, input: UpdatePatentInput!): Patent!
+}
+
+type Patent {
+  id: Int!
+  drugId: String!
+  patentNum: String!
+  filingDate: DateTime
+  dateGranted: DateTime
+  expirationDate: DateTime
+  companyName: String
+  Drug: Drug!
+  createdAt: DateTime!
+}
+
+type Query {
+  drug(id: String!): Drug
+  drugs: [Drug!]!
+  patent(id: Int!): Patent
+  patents: [Patent!]!
+  redwood: Redwood
+}
+
+type Redwood {
+  version: String
+  currentUser: JSON
+  prismaVersion: String
+}
+
+scalar Time
+
+input UpdateDrugInput {
+  medicinalIngredient: String
+  brandName: String
+  routeOfAdmin: String
+  strengthPerUnit: String
+  humanOrVet: String
+  therapeuticClass: String
+  dosageForm: String
+  din: String
+}
+
+input UpdatePatentInput {
+  drugId: String
+  patentNum: String
+  filingDate: DateTime
+  dateGranted: DateTime
+  expirationDate: DateTime
+  companyName: String
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/services/contacts/contacts.js"],
+  "sourcesContent": ["import { db } from 'src/lib/db'\r\nimport { UserInputError } from '@redwoodjs/api'\r\n\r\nconst validate = (input) => {\r\n  if (input.email && !input.email.match(/[^@]+@[^.]+\\..+/)) {\r\n    throw new UserInputError(\"Can't create new contact\",{\r\n      messages: {\r\n        email: ['is not formatted like an email address'],\r\n      },\r\n    })\r\n  }\r\n}\r\n\r\nexport const contacts = () => {\r\n  return db.contact.findMany()\r\n}\r\n\r\nexport const createContact = ({ input }) => {\r\n  validate(input)\r\n  return db.contact.create({ data: input })\r\n}\r\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;gBAAA;AACA,iBAA+B;AAE/B,MAAM,WAAY,WAAU;AAC1B,MAAI,MAAM,SAAS,CAAC,MAAM,MAAM,MAAM,oBAAoB;AACxD,UAAM,IAAI,0BAAe,4BAA2B;MAClD,UAAU;QACR,OAAO,CAAC;;;;;AAMT,MAAM,WAAW,MAAM;AAC5B,SAAO,aAAG,QAAQ;;AAGb,MAAM,gBAAgB,CAAC;EAAE;MAAY;AAC1C,WAAS;AACT,SAAO,aAAG,QAAQ,OAAO;IAAE,MAAM;;;",
+  "names": []
+}

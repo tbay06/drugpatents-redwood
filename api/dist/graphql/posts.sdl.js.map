@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/graphql/posts.sdl.js"],
+  "sourcesContent": ["export const schema = gql`\r\n  type Post {\r\n    id: Int!\r\n    title: String!\r\n    body: String!\r\n    createdAt: DateTime!\r\n  }\r\n\r\n  type Query {\r\n    posts: [Post!]!\r\n    post(id: Int!): Post\r\n  }\r\n\r\n  input CreatePostInput {\r\n    title: String!\r\n    body: String!\r\n  }\r\n\r\n  input UpdatePostInput {\r\n    title: String\r\n    body: String\r\n  }\r\n\r\n  type Mutation {\r\n    createPost(input: CreatePostInput!): Post!\r\n    updatePost(id: Int!, input: UpdatePostInput!): Post!\r\n    deletePost(id: Int!): Post!\r\n  }\r\n`\r\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;yBAAsB;AAAf,MAAM,SAAS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "names": []
+}

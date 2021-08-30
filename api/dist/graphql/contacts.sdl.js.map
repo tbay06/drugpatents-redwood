@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/graphql/contacts.sdl.js"],
+  "sourcesContent": ["export const schema = gql`\r\n  type Contact {\r\n    id: Int!\r\n    name: String!\r\n    email: String!\r\n    message: String!\r\n    createdAt: DateTime!\r\n  }\r\n\r\n  type Query {\r\n    contacts: [Contact!]!\r\n  }\r\n\r\n  input CreateContactInput {\r\n    name: String!\r\n    email: String!\r\n    message: String!\r\n  }\r\n\r\n  input UpdateContactInput {\r\n    name: String\r\n    email: String\r\n    message: String\r\n  }\r\n\r\n  type Mutation {\r\n    createContact(input: CreateContactInput!): Contact\r\n  }\r\n`\r\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;yBAAsB;AAAf,MAAM,SAAS;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "names": []
+}

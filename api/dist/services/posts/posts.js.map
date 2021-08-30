@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/services/posts/posts.js"],
+  "sourcesContent": ["import { db } from 'src/lib/db'\r\nimport { requireAuth } from 'src/lib/auth'\r\n\r\n// Used when the environment variable REDWOOD_SECURE_SERVICES=1\r\nexport const beforeResolver = (rules) => {\r\n  rules.add(requireAuth)\r\n}\r\n\r\nexport const posts = () => {\r\n  return db.post.findMany()\r\n}\r\n\r\nexport const post = ({ id }) => {\r\n  return db.post.findUnique({\r\n    where: { id },\r\n  })\r\n}\r\n\r\nexport const createPost = ({ input }) => {\r\n  return db.post.create({\r\n    data: input,\r\n  })\r\n}\r\n\r\nexport const updatePost = ({ id, input }) => {\r\n  return db.post.update({\r\n    data: input,\r\n    where: { id },\r\n  })\r\n}\r\n\r\nexport const deletePost = ({ id }) => {\r\n  return db.post.delete({\r\n    where: { id },\r\n  })\r\n}\r\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;;;;;gBAAA;AACA,kBAAA;AAGO,MAAM,iBAAkB,WAAU;AACvC,QAAM,IAAI;;AAGL,MAAM,QAAQ,MAAM;AACzB,SAAO,aAAG,KAAK;;AAGV,MAAM,OAAO,CAAC;EAAE;MAAS;AAC9B,SAAO,aAAG,KAAK,WAAW;IACxB,OAAO;MAAE;;;;AAIN,MAAM,aAAa,CAAC;EAAE;MAAY;AACvC,SAAO,aAAG,KAAK,OAAO;IACpB,MAAM;;;AAIH,MAAM,aAAa,CAAC;EAAE;EAAI;MAAY;AAC3C,SAAO,aAAG,KAAK,OAAO;IACpB,MAAM;IACN,OAAO;MAAE;;;;AAIN,MAAM,aAAa,CAAC;EAAE;MAAS;AACpC,SAAO,aAAG,KAAK,OAAO;IACpB,OAAO;MAAE;;;;",
+  "names": []
+}
