@@ -38,6 +38,11 @@ export type CreatePatentInput = {
   companyName?: Maybe<Scalars['String']>;
 };
 
+export type CreateSavedDrugInput = {
+  userId: Scalars['String'];
+  drugId: Scalars['String'];
+};
+
 
 
 export type Drug = {
@@ -53,6 +58,7 @@ export type Drug = {
   din?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   Patent: Array<Maybe<Patent>>;
+  SavedDrug?: Maybe<Array<Maybe<SavedDrug>>>;
 };
 
 
@@ -61,10 +67,13 @@ export type Mutation = {
   __typename?: 'Mutation';
   createDrug: Drug;
   createPatent: Patent;
+  createSavedDrug: SavedDrug;
   deleteDrug: Drug;
   deletePatent: Patent;
+  deleteSavedDrug: SavedDrug;
   updateDrug: Drug;
   updatePatent: Patent;
+  updateSavedDrug: SavedDrug;
 };
 
 
@@ -78,12 +87,22 @@ export type MutationCreatePatentArgs = {
 };
 
 
+export type MutationCreateSavedDrugArgs = {
+  input: CreateSavedDrugInput;
+};
+
+
 export type MutationDeleteDrugArgs = {
   id: Scalars['String'];
 };
 
 
 export type MutationDeletePatentArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationDeleteSavedDrugArgs = {
   id: Scalars['Int'];
 };
 
@@ -97,6 +116,12 @@ export type MutationUpdateDrugArgs = {
 export type MutationUpdatePatentArgs = {
   id: Scalars['Int'];
   input: UpdatePatentInput;
+};
+
+
+export type MutationUpdateSavedDrugArgs = {
+  id: Scalars['Int'];
+  input: UpdateSavedDrugInput;
 };
 
 export type Patent = {
@@ -119,6 +144,8 @@ export type Query = {
   patent?: Maybe<Patent>;
   patents: Array<Patent>;
   redwood?: Maybe<Redwood>;
+  savedDrug?: Maybe<SavedDrug>;
+  savedDrugs: Array<SavedDrug>;
 };
 
 
@@ -127,8 +154,24 @@ export type QueryDrugArgs = {
 };
 
 
+export type QueryDrugsArgs = {
+  take: Scalars['Int'];
+  skip: Scalars['Int'];
+};
+
+
 export type QueryPatentArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QuerySavedDrugArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QuerySavedDrugsArgs = {
+  userId: Scalars['String'];
 };
 
 export type Redwood = {
@@ -136,6 +179,14 @@ export type Redwood = {
   version?: Maybe<Scalars['String']>;
   currentUser?: Maybe<Scalars['JSON']>;
   prismaVersion?: Maybe<Scalars['String']>;
+};
+
+export type SavedDrug = {
+  __typename?: 'SavedDrug';
+  id: Scalars['Int'];
+  userId: Scalars['String'];
+  Drug: Drug;
+  drugId: Scalars['String'];
 };
 
 
@@ -157,6 +208,11 @@ export type UpdatePatentInput = {
   dateGranted?: Maybe<Scalars['DateTime']>;
   expirationDate?: Maybe<Scalars['DateTime']>;
   companyName?: Maybe<Scalars['String']>;
+};
+
+export type UpdateSavedDrugInput = {
+  userId?: Maybe<Scalars['String']>;
+  drugId?: Maybe<Scalars['String']>;
 };
 
 
@@ -240,6 +296,7 @@ export type ResolversTypes = {
   CreateDrugInput: CreateDrugInput;
   String: ResolverTypeWrapper<Scalars['String']>;
   CreatePatentInput: CreatePatentInput;
+  CreateSavedDrugInput: CreateSavedDrugInput;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Drug: ResolverTypeWrapper<Drug>;
@@ -250,9 +307,11 @@ export type ResolversTypes = {
   Patent: ResolverTypeWrapper<Patent>;
   Query: ResolverTypeWrapper<{}>;
   Redwood: ResolverTypeWrapper<Redwood>;
+  SavedDrug: ResolverTypeWrapper<SavedDrug>;
   Time: ResolverTypeWrapper<Scalars['Time']>;
   UpdateDrugInput: UpdateDrugInput;
   UpdatePatentInput: UpdatePatentInput;
+  UpdateSavedDrugInput: UpdateSavedDrugInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -261,6 +320,7 @@ export type ResolversParentTypes = {
   CreateDrugInput: CreateDrugInput;
   String: Scalars['String'];
   CreatePatentInput: CreatePatentInput;
+  CreateSavedDrugInput: CreateSavedDrugInput;
   Date: Scalars['Date'];
   DateTime: Scalars['DateTime'];
   Drug: Drug;
@@ -271,9 +331,11 @@ export type ResolversParentTypes = {
   Patent: Patent;
   Query: {};
   Redwood: Redwood;
+  SavedDrug: SavedDrug;
   Time: Scalars['Time'];
   UpdateDrugInput: UpdateDrugInput;
   UpdatePatentInput: UpdatePatentInput;
+  UpdateSavedDrugInput: UpdateSavedDrugInput;
   Boolean: Scalars['Boolean'];
 };
 
@@ -297,6 +359,7 @@ export type DrugResolvers<ContextType = any, ParentType extends ResolversParentT
   din?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   Patent?: Resolver<Array<Maybe<ResolversTypes['Patent']>>, ParentType, ContextType>;
+  SavedDrug?: Resolver<Maybe<Array<Maybe<ResolversTypes['SavedDrug']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -311,10 +374,13 @@ export interface JsonObjectScalarConfig extends GraphQLScalarTypeConfig<Resolver
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createDrug?: Resolver<ResolversTypes['Drug'], ParentType, ContextType, RequireFields<MutationCreateDrugArgs, 'input'>>;
   createPatent?: Resolver<ResolversTypes['Patent'], ParentType, ContextType, RequireFields<MutationCreatePatentArgs, 'input'>>;
+  createSavedDrug?: Resolver<ResolversTypes['SavedDrug'], ParentType, ContextType, RequireFields<MutationCreateSavedDrugArgs, 'input'>>;
   deleteDrug?: Resolver<ResolversTypes['Drug'], ParentType, ContextType, RequireFields<MutationDeleteDrugArgs, 'id'>>;
   deletePatent?: Resolver<ResolversTypes['Patent'], ParentType, ContextType, RequireFields<MutationDeletePatentArgs, 'id'>>;
+  deleteSavedDrug?: Resolver<ResolversTypes['SavedDrug'], ParentType, ContextType, RequireFields<MutationDeleteSavedDrugArgs, 'id'>>;
   updateDrug?: Resolver<ResolversTypes['Drug'], ParentType, ContextType, RequireFields<MutationUpdateDrugArgs, 'id' | 'input'>>;
   updatePatent?: Resolver<ResolversTypes['Patent'], ParentType, ContextType, RequireFields<MutationUpdatePatentArgs, 'id' | 'input'>>;
+  updateSavedDrug?: Resolver<ResolversTypes['SavedDrug'], ParentType, ContextType, RequireFields<MutationUpdateSavedDrugArgs, 'id' | 'input'>>;
 };
 
 export type PatentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Patent'] = ResolversParentTypes['Patent']> = {
@@ -332,16 +398,26 @@ export type PatentResolvers<ContextType = any, ParentType extends ResolversParen
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   drug?: Resolver<Maybe<ResolversTypes['Drug']>, ParentType, ContextType, RequireFields<QueryDrugArgs, 'id'>>;
-  drugs?: Resolver<Array<ResolversTypes['Drug']>, ParentType, ContextType>;
+  drugs?: Resolver<Array<ResolversTypes['Drug']>, ParentType, ContextType, RequireFields<QueryDrugsArgs, 'take' | 'skip'>>;
   patent?: Resolver<Maybe<ResolversTypes['Patent']>, ParentType, ContextType, RequireFields<QueryPatentArgs, 'id'>>;
   patents?: Resolver<Array<ResolversTypes['Patent']>, ParentType, ContextType>;
   redwood?: Resolver<Maybe<ResolversTypes['Redwood']>, ParentType, ContextType>;
+  savedDrug?: Resolver<Maybe<ResolversTypes['SavedDrug']>, ParentType, ContextType, RequireFields<QuerySavedDrugArgs, 'id'>>;
+  savedDrugs?: Resolver<Array<ResolversTypes['SavedDrug']>, ParentType, ContextType, RequireFields<QuerySavedDrugsArgs, 'userId'>>;
 };
 
 export type RedwoodResolvers<ContextType = any, ParentType extends ResolversParentTypes['Redwood'] = ResolversParentTypes['Redwood']> = {
   version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   currentUser?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   prismaVersion?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SavedDrugResolvers<ContextType = any, ParentType extends ResolversParentTypes['SavedDrug'] = ResolversParentTypes['SavedDrug']> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  Drug?: Resolver<ResolversTypes['Drug'], ParentType, ContextType>;
+  drugId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -359,6 +435,7 @@ export type Resolvers<ContextType = any> = {
   Patent?: PatentResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Redwood?: RedwoodResolvers<ContextType>;
+  SavedDrug?: SavedDrugResolvers<ContextType>;
   Time?: GraphQLScalarType;
 };
 

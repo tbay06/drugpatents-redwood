@@ -4,7 +4,7 @@ import Drugs from 'src/components/Drug/Drugs'
 
 export const QUERY = gql`
   query FindDrugs {
-    drugs {
+    drugs(take: 10000, skip: 0) {
       id
       medicinalIngredient
       brandName

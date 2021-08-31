@@ -1,7 +1,7 @@
 import DrugPatent from 'src/components/DrugPatent'
 export const QUERY = gql`
-  query DrugPatentsQuery {
-    drugs {
+  query DrugPatentsQuery($take: Int!, $skip: Int!) {
+    drugs(take: $take, skip: $skip) {
       id
       medicinalIngredient
       brandName
@@ -13,8 +13,12 @@ export const QUERY = gql`
       din
 
       Patent {
+        patentNum
         expirationDate
         companyName
+      }
+      SavedDrug {
+        id
       }
     }
   }

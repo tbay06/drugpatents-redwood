@@ -1,7 +1,5 @@
-import DrugPatentsCell from 'src/components/DrugPatentsCell'
-
 const HomePage = () => {
-  return <DrugPatentsCell />
+  return <div>Placeholder</div>
 }
 
 export default HomePage

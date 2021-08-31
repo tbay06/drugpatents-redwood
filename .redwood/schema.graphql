@@ -18,6 +18,11 @@ input CreatePatentInput {
   companyName: String
 }
 
+input CreateSavedDrugInput {
+  userId: String!
+  drugId: String!
+}
+
 scalar Date
 
 scalar DateTime
@@ -34,6 +39,7 @@ type Drug {
   din: String
   createdAt: DateTime!
   Patent: [Patent]!
+  SavedDrug: [SavedDrug]
 }
 
 scalar JSON
@@ -43,10 +49,13 @@ scalar JSONObject
 type Mutation {
   createDrug(input: CreateDrugInput!): Drug!
   createPatent(input: CreatePatentInput!): Patent!
+  createSavedDrug(input: CreateSavedDrugInput!): SavedDrug!
   deleteDrug(id: String!): Drug!
   deletePatent(id: Int!): Patent!
+  deleteSavedDrug(id: Int!): SavedDrug!
   updateDrug(id: String!, input: UpdateDrugInput!): Drug!
   updatePatent(id: Int!, input: UpdatePatentInput!): Patent!
+  updateSavedDrug(id: Int!, input: UpdateSavedDrugInput!): SavedDrug!
 }
 
 type Patent {
@@ -63,16 +72,25 @@ type Patent {
 
 type Query {
   drug(id: String!): Drug
-  drugs: [Drug!]!
+  drugs(take: Int!, skip: Int!): [Drug!]!
   patent(id: Int!): Patent
   patents: [Patent!]!
   redwood: Redwood
+  savedDrug(id: Int!): SavedDrug
+  savedDrugs(userId: String!): [SavedDrug!]!
 }
 
 type Redwood {
   version: String
   currentUser: JSON
   prismaVersion: String
+}
+
+type SavedDrug {
+  id: Int!
+  userId: String!
+  Drug: Drug!
+  drugId: String!
 }
 
 scalar Time
@@ -95,4 +113,9 @@ input UpdatePatentInput {
   dateGranted: DateTime
   expirationDate: DateTime
   companyName: String
+}
+
+input UpdateSavedDrugInput {
+  userId: String
+  drugId: String
 }

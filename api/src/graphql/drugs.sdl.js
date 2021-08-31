@@ -11,10 +11,11 @@ export const schema = gql`
     din: String
     createdAt: DateTime!
     Patent: [Patent]!
+    SavedDrug: [SavedDrug]
   }
 
   type Query {
-    drugs: [Drug!]!
+    drugs(take: Int!, skip: Int!): [Drug!]!
     drug(id: String!): Drug
   }
 

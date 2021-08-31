@@ -8,6 +8,7 @@
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
 import { Router, Route, Private, Set } from '@redwoodjs/router'
+import SavedDrugsLayout from 'src/layouts/SavedDrugsLayout'
 import PatentsLayout from 'src/layouts/PatentsLayout'
 import DrugsLayout from 'src/layouts/DrugsLayout'
 import AppLayout from 'src/layouts/AppLayout'
@@ -15,8 +16,16 @@ import AppLayout from 'src/layouts/AppLayout'
 const Routes = () => {
   return (
     <Router>
+      <Set wrap={SavedDrugsLayout}>
+        <Route path="/saved-drugs/new" page={SavedDrugNewSavedDrugPage} name="newSavedDrug" />
+        <Route path="/saved-drugs/{id:Int}/edit" page={SavedDrugEditSavedDrugPage} name="editSavedDrug" />
+        <Route path="/saved-drugs/{id:Int}" page={SavedDrugSavedDrugPage} name="savedDrug" />
+        <Route path="/saved-drugs" page={SavedDrugSavedDrugsPage} name="savedDrugs" />
+      </Set>
       <Set wrap={AppLayout}>
         <Route path="/" page={HomePage} name="home" />
+        <Route path="/saved-patents" page={SavedPatentsPage} name="savedPatents" />
+        <Route path="/drug-patents" page={DrugPatentsPage} name="drugPatents" />
       </Set>
       <Private unauthenticated="home">
         <Set wrap={PatentsLayout}>

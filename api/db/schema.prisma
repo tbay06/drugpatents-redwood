@@ -16,7 +16,7 @@ model User {
 }
 
 model Drug {
-  id              String   @id
+  id                  String        @id
   medicinalIngredient String?
   brandName           String?
   routeOfAdmin        String?
@@ -25,8 +25,9 @@ model Drug {
   therapeuticClass    String?
   dosageForm          String?
   din                 String?
-  createdAt           DateTime @default(now())
+  createdAt           DateTime      @default(now())
   Patent              Patent[]
+  SavedDrug         SavedDrug[]
 }
 
 model Patent {
@@ -39,4 +40,11 @@ model Patent {
   companyName    String?
   Drug           Drug      @relation(fields: [drugId], references: [id])
   createdAt      DateTime  @default(now())
+}
+
+model SavedDrug {
+  id     Int @id @default(autoincrement())
+  userId String
+  Drug   Drug   @relation(fields: [drugId], references: [id])
+  drugId String
 }

@@ -6,8 +6,8 @@ export const beforeResolver = (rules) => {
   rules.add(requireAuth)
 }
 
-export const drugs = () => {
-  return db.drug.findMany()
+export const drugs = ({ take = 10000, skip = 0 }) => {
+  return db.drug.findMany({ take: take, skip: skip })
 }
 
 export const drug = ({ id }) => {
@@ -40,5 +40,9 @@ export const deleteDrug = ({ id }) => {
 
 export const Drug = {
   Patent: (_obj, { root }) =>
-    db.drug.findUnique({ where: { id: root.id } }).Patent(),
+    db.drug
+      .findUnique({ where: { id: root.id } })
+      .Patent({ orderBy: [{ expirationDate: 'desc' }] }),
+  SavedDrug: (_obj, { root }) =>
+    db.drug.findUnique({ where: { id: root.id } }).SavedDrug(),
 }

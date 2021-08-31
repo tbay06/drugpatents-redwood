@@ -7,12 +7,15 @@ export const beforeResolver = (rules) => {
 }
 
 export const patents = () => {
-  return db.patent.findMany()
+  return db.patent.findMany({
+    orderby: [{ expirationDate: 'desc' }],
+  })
 }
 
 export const patent = ({ id }) => {
   return db.patent.findUnique({
     where: { id },
+    orderby: [{ expirationDate: 'desc' }],
   })
 }
 
