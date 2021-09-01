@@ -10,10 +10,21 @@ export const schema = gql`
     Drug: Drug!
     createdAt: DateTime!
   }
+  type PatentsPerCompanyCount {
+    id: Int!
+  }
+  type PatentsPerCompany {
+    companyName: String!
+    _count: PatentsPerCompanyCount!
+  }
 
   type Query {
     patents: [Patent!]!
     patent(id: Int!): Patent
+    expiringSoon: [Patent!]!
+    recentlyExpired: [Patent!]!
+    totalPatentsPerCompany: [PatentsPerCompany!]!
+    activePatentsPerCompany: [PatentsPerCompany!]!
   }
 
   input CreatePatentInput {

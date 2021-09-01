@@ -70,14 +70,27 @@ type Patent {
   createdAt: DateTime!
 }
 
+type PatentsPerCompany {
+  companyName: String!
+  _count: PatentsPerCompanyCount!
+}
+
+type PatentsPerCompanyCount {
+  id: Int!
+}
+
 type Query {
+  activePatentsPerCompany: [PatentsPerCompany!]!
   drug(id: String!): Drug
   drugs(take: Int!, skip: Int!): [Drug!]!
+  expiringSoon: [Patent!]!
   patent(id: Int!): Patent
   patents: [Patent!]!
+  recentlyExpired: [Patent!]!
   redwood: Redwood
   savedDrug(id: Int!): SavedDrug
   savedDrugs(userId: String!): [SavedDrug!]!
+  totalPatentsPerCompany: [PatentsPerCompany!]!
 }
 
 type Redwood {

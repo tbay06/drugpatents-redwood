@@ -137,15 +137,30 @@ export type Patent = {
   createdAt: Scalars['DateTime'];
 };
 
+export type PatentsPerCompany = {
+  __typename?: 'PatentsPerCompany';
+  companyName: Scalars['String'];
+  _count: PatentsPerCompanyCount;
+};
+
+export type PatentsPerCompanyCount = {
+  __typename?: 'PatentsPerCompanyCount';
+  id: Scalars['Int'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  activePatentsPerCompany: Array<PatentsPerCompany>;
   drug?: Maybe<Drug>;
   drugs: Array<Drug>;
+  expiringSoon: Array<Patent>;
   patent?: Maybe<Patent>;
   patents: Array<Patent>;
+  recentlyExpired: Array<Patent>;
   redwood?: Maybe<Redwood>;
   savedDrug?: Maybe<SavedDrug>;
   savedDrugs: Array<SavedDrug>;
+  totalPatentsPerCompany: Array<PatentsPerCompany>;
 };
 
 
@@ -305,6 +320,8 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Patent: ResolverTypeWrapper<Patent>;
+  PatentsPerCompany: ResolverTypeWrapper<PatentsPerCompany>;
+  PatentsPerCompanyCount: ResolverTypeWrapper<PatentsPerCompanyCount>;
   Query: ResolverTypeWrapper<{}>;
   Redwood: ResolverTypeWrapper<Redwood>;
   SavedDrug: ResolverTypeWrapper<SavedDrug>;
@@ -329,6 +346,8 @@ export type ResolversParentTypes = {
   Mutation: {};
   Int: Scalars['Int'];
   Patent: Patent;
+  PatentsPerCompany: PatentsPerCompany;
+  PatentsPerCompanyCount: PatentsPerCompanyCount;
   Query: {};
   Redwood: Redwood;
   SavedDrug: SavedDrug;
@@ -396,14 +415,29 @@ export type PatentResolvers<ContextType = any, ParentType extends ResolversParen
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type PatentsPerCompanyResolvers<ContextType = any, ParentType extends ResolversParentTypes['PatentsPerCompany'] = ResolversParentTypes['PatentsPerCompany']> = {
+  companyName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  _count?: Resolver<ResolversTypes['PatentsPerCompanyCount'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PatentsPerCompanyCountResolvers<ContextType = any, ParentType extends ResolversParentTypes['PatentsPerCompanyCount'] = ResolversParentTypes['PatentsPerCompanyCount']> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  activePatentsPerCompany?: Resolver<Array<ResolversTypes['PatentsPerCompany']>, ParentType, ContextType>;
   drug?: Resolver<Maybe<ResolversTypes['Drug']>, ParentType, ContextType, RequireFields<QueryDrugArgs, 'id'>>;
   drugs?: Resolver<Array<ResolversTypes['Drug']>, ParentType, ContextType, RequireFields<QueryDrugsArgs, 'take' | 'skip'>>;
+  expiringSoon?: Resolver<Array<ResolversTypes['Patent']>, ParentType, ContextType>;
   patent?: Resolver<Maybe<ResolversTypes['Patent']>, ParentType, ContextType, RequireFields<QueryPatentArgs, 'id'>>;
   patents?: Resolver<Array<ResolversTypes['Patent']>, ParentType, ContextType>;
+  recentlyExpired?: Resolver<Array<ResolversTypes['Patent']>, ParentType, ContextType>;
   redwood?: Resolver<Maybe<ResolversTypes['Redwood']>, ParentType, ContextType>;
   savedDrug?: Resolver<Maybe<ResolversTypes['SavedDrug']>, ParentType, ContextType, RequireFields<QuerySavedDrugArgs, 'id'>>;
   savedDrugs?: Resolver<Array<ResolversTypes['SavedDrug']>, ParentType, ContextType, RequireFields<QuerySavedDrugsArgs, 'userId'>>;
+  totalPatentsPerCompany?: Resolver<Array<ResolversTypes['PatentsPerCompany']>, ParentType, ContextType>;
 };
 
 export type RedwoodResolvers<ContextType = any, ParentType extends ResolversParentTypes['Redwood'] = ResolversParentTypes['Redwood']> = {
@@ -433,6 +467,8 @@ export type Resolvers<ContextType = any> = {
   JSONObject?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Patent?: PatentResolvers<ContextType>;
+  PatentsPerCompany?: PatentsPerCompanyResolvers<ContextType>;
+  PatentsPerCompanyCount?: PatentsPerCompanyCountResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Redwood?: RedwoodResolvers<ContextType>;
   SavedDrug?: SavedDrugResolvers<ContextType>;

@@ -33,6 +33,51 @@ export const updatePatent = ({ id, input }) => {
     where: { id },
   })
 }
+export const expiringSoon = () => {
+  const now = new Date()
+  const soon = new Date(now.getFullYear() + 1, now.getMonth(), now.getDay())
+  return db.patent.findMany({
+    where: {
+      expirationDate: { gte: now, lte: soon },
+    },
+  })
+}
+export const recentlyExpired = () => {
+  const now = new Date()
+  const recent = new Date(now.getFullYear() - 1, now.getMonth(), now.getDay())
+  return db.patent.findMany({
+    where: {
+      expirationDate: { gte: recent, lte: now },
+    },
+  })
+}
+export const totalPatentsPerCompany = () => {
+  return db.patent.groupBy({
+    by: ['companyName'],
+    where: {
+      companyName: {
+        notIn: [''],
+      },
+    },
+    _count: {
+      id: true,
+    },
+  })
+}
+export const activePatentsPerCompany = () => {
+  return db.patent.groupBy({
+    by: ['companyName'],
+    where: {
+      companyName: {
+        notIn: [''],
+      },
+      expirationDate: { gte: new Date() },
+    },
+    _count: {
+      id: true,
+    },
+  })
+}
 
 export const deletePatent = ({ id }) => {
   requireAuth()
