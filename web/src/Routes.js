@@ -16,18 +16,20 @@ import AppLayout from 'src/layouts/AppLayout'
 const Routes = () => {
   return (
     <Router>
-      <Set wrap={SavedDrugsLayout}>
-        <Route path="/saved-drugs/new" page={SavedDrugNewSavedDrugPage} name="newSavedDrug" />
-        <Route path="/saved-drugs/{id:Int}/edit" page={SavedDrugEditSavedDrugPage} name="editSavedDrug" />
-        <Route path="/saved-drugs/{id:Int}" page={SavedDrugSavedDrugPage} name="savedDrug" />
-        <Route path="/saved-drugs" page={SavedDrugSavedDrugsPage} name="savedDrugs" />
-      </Set>
       <Set wrap={AppLayout}>
         <Route path="/" page={HomePage} name="home" />
-        <Route path="/saved-patents" page={SavedPatentsPage} name="savedPatents" />
-        <Route path="/drug-patents" page={DrugPatentsPage} name="drugPatents" />
       </Set>
       <Private unauthenticated="home">
+        <Set wrap={AppLayout}>
+          <Route path="/saved-patents" page={SavedPatentsPage} name="savedPatents" />
+          <Route path="/drug-patents" page={DrugPatentsPage} name="drugPatents" />
+        </Set>
+        <Set wrap={SavedDrugsLayout}>
+          <Route path="/saved-drugs/new" page={SavedDrugNewSavedDrugPage} name="newSavedDrug" />
+          <Route path="/saved-drugs/{id:Int}/edit" page={SavedDrugEditSavedDrugPage} name="editSavedDrug" />
+          <Route path="/saved-drugs/{id:Int}" page={SavedDrugSavedDrugPage} name="savedDrug" />
+          <Route path="/saved-drugs" page={SavedDrugSavedDrugsPage} name="savedDrugs" />
+        </Set>
         <Set wrap={PatentsLayout}>
           <Route path="/patents/new" page={PatentNewPatentPage} name="newPatent" />
           <Route path="/patents/{id:Int}/edit" page={PatentEditPatentPage} name="editPatent" />

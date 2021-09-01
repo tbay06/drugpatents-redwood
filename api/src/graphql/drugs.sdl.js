@@ -14,8 +14,13 @@ export const schema = gql`
     SavedDrug: [SavedDrug]
   }
 
+  type PaginatedDrugs {
+    drugs: [Drug!]!
+    count: Int!
+  }
+
   type Query {
-    drugs(take: Int!, skip: Int!): [Drug!]!
+    drugs(take: Int!, skip: Int!): PaginatedDrugs
     drug(id: String!): Drug
   }
 

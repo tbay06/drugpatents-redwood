@@ -7,7 +7,14 @@ export const beforeResolver = (rules) => {
 }
 
 export const drugs = ({ take = 10000, skip = 0 }) => {
-  return db.drug.findMany({ take: take, skip: skip })
+  return {
+    drugs: db.drug.findMany({
+      take: take,
+      skip: skip,
+      orderBy: [{ brandName: 'asc' }],
+    }),
+    count: db.drug.count(),
+  }
 }
 
 export const drug = ({ id }) => {

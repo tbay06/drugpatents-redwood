@@ -1,7 +1,7 @@
 import DrugPatent from 'src/components/DrugPatent'
 export const QUERY = gql`
-  query SavedDrugsQuery($userId: String!) {
-    savedDrugs(userId: $userId) {
+  query FindExpiringSoonQuery {
+    expiringSoon {
       id
       Drug {
         id
@@ -13,8 +13,9 @@ export const QUERY = gql`
         therapeuticClass
         dosageForm
         din
-
+        createdAt
         Patent {
+          id
           patentNum
           expirationDate
           companyName
@@ -29,17 +30,22 @@ export const QUERY = gql`
 
 export const Loading = () => <div>Loading...</div>
 
-export const Empty = () => <div>No Saved Patents</div>
+export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ savedDrugs }) => {
-  console.log(savedDrugs)
-  return savedDrugs.map((savedDrug) => (
-    <div className="py-1" key={savedDrug.Drug.id}>
-      <DrugPatent key={savedDrug.Drug.id} drug={savedDrug.Drug} />
-    </div>
-  ))
+export const Success = ({ expiringSoon }) => {
+  const now = new Date()
+  const soon = new Date(now.getFullYear() + 1, now.getMonth(), now.getDay())
+  return expiringSoon.map((expiring) => {
+    if (new Date(expiring.Drug.Patent[0].expirationDate) <= soon) {
+      return (
+        <div className="py-1">
+          <DrugPatent key={expiring.id} drug={expiring.Drug} />
+        </div>
+      )
+    }
+  })
 }

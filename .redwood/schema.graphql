@@ -58,6 +58,11 @@ type Mutation {
   updateSavedDrug(id: Int!, input: UpdateSavedDrugInput!): SavedDrug!
 }
 
+type PaginatedDrugs {
+  drugs: [Drug!]!
+  count: Int!
+}
+
 type Patent {
   id: Int!
   drugId: String!
@@ -82,7 +87,7 @@ type PatentsPerCompanyCount {
 type Query {
   activePatentsPerCompany: [PatentsPerCompany!]!
   drug(id: String!): Drug
-  drugs(take: Int!, skip: Int!): [Drug!]!
+  drugs(take: Int!, skip: Int!): PaginatedDrugs
   expiringSoon: [Patent!]!
   patent(id: Int!): Patent
   patents: [Patent!]!

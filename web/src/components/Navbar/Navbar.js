@@ -2,7 +2,6 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { useAuth } from '@redwoodjs/auth'
-import { routes, NavLink, useLocation } from '@redwoodjs/router'
 
 const user = {
   name: 'Tom Cook',
@@ -17,10 +16,12 @@ function classNames(...classes) {
 
 const Navbar = () => {
   const { logIn, isAuthenticated, logOut, currentUser } = useAuth()
-  const location = useLocation()
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800 sticky top-0">
+      <Disclosure
+        as="nav"
+        className="bg-gray-800 fixed left-0 right-0 top-0 z-10"
+      >
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,29 +34,9 @@ const Navbar = () => {
                       alt="Workflow"
                     />
                   </div>
-                  <div className="hidden md:block">
-                    <div className="ml-10 flex items-baseline space-x-4">
-                      <NavLink
-                        className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                        activeClassName="px-3 py-2 rounded-md text-sm font-medium bg-gray-900 text-white"
-                        to={routes.home()}
-                      >
-                        Home
-                      </NavLink>
-                      <NavLink
-                        className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                        activeClassName="px-3 py-2 rounded-md text-sm font-medium bg-gray-900 text-white"
-                        to={routes.drugPatents()}
-                      >
-                        Browse Patents
-                      </NavLink>
-                      <NavLink
-                        className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                        activeClassName="px-3 py-2 rounded-md text-sm font-medium bg-gray-900 text-white"
-                        to={routes.savedPatents()}
-                      >
-                        Saved Patents
-                      </NavLink>
+                  <div className="block">
+                    <div className="ml-2 flex items-baseline space-x-4 text-indigo-500 text-3xl font-bold">
+                      Patinformed.Medi
                     </div>
                   </div>
                 </div>
@@ -172,16 +153,6 @@ const Navbar = () => {
           </>
         )}
       </Disclosure>
-
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900 uppercase">
-            {location?.pathname === '/'
-              ? 'home'
-              : location?.pathname.replace('-', ' ').slice(1)}
-          </h1>
-        </div>
-      </header>
     </>
   )
 }

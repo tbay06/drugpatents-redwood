@@ -13,13 +13,13 @@ type QueryParams = Record<string | number, string | number | boolean>
 declare module '@redwoodjs/router' {
   interface AvailableRoutes {
     // Only "<Route />" components with a "name" and "path" prop will be populated here.
+    home: (params?: RouteParams<"/"> & QueryParams) => "/"
+    savedPatents: (params?: RouteParams<"/saved-patents"> & QueryParams) => "/saved-patents"
+    drugPatents: (params?: RouteParams<"/drug-patents"> & QueryParams) => "/drug-patents"
     newSavedDrug: (params?: RouteParams<"/saved-drugs/new"> & QueryParams) => "/saved-drugs/new"
     editSavedDrug: (params?: RouteParams<"/saved-drugs/{id:Int}/edit"> & QueryParams) => "/saved-drugs/{id:Int}/edit"
     savedDrug: (params?: RouteParams<"/saved-drugs/{id:Int}"> & QueryParams) => "/saved-drugs/{id:Int}"
     savedDrugs: (params?: RouteParams<"/saved-drugs"> & QueryParams) => "/saved-drugs"
-    home: (params?: RouteParams<"/"> & QueryParams) => "/"
-    savedPatents: (params?: RouteParams<"/saved-patents"> & QueryParams) => "/saved-patents"
-    drugPatents: (params?: RouteParams<"/drug-patents"> & QueryParams) => "/drug-patents"
     newPatent: (params?: RouteParams<"/patents/new"> & QueryParams) => "/patents/new"
     editPatent: (params?: RouteParams<"/patents/{id:Int}/edit"> & QueryParams) => "/patents/{id:Int}/edit"
     patent: (params?: RouteParams<"/patents/{id:Int}"> & QueryParams) => "/patents/{id:Int}"

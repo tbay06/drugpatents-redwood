@@ -40,10 +40,10 @@ const DrugPatent = ({ drug }) => {
     createSavedDrug({ variables: { input } })
   }
   const saveButtonClassNames = classNames(
-    'rounded-lg border-2 border-blue-600 cursor-pointer text-white m-auto px-2 row-span-4',
+    'rounded-lg border-2 border-indigo-500 cursor-pointer text-white m-auto px-2 row-span-4',
     loading
       ? 'pointer-events-none bg-gray-500'
-      : 'bg-blue-400 hover:bg-blue-600'
+      : 'bg-indigo-400 hover:bg-indigo-500'
   )
   const removeButtonClassNames = classNames(
     'rounded-lg border-2 border-red-600 cursor-pointer text-white m-auto px-2 row-span-4',
@@ -51,7 +51,7 @@ const DrugPatent = ({ drug }) => {
   )
   return (
     <>
-      <div className="grid grid-cols-11 w-full my-2 rounded-lg p-2 border-2 border-gray-200">
+      <div className="grid grid-cols-11 w-full rounded-lg p-2 border-2 border-gray-200">
         <div className="text-xs text-gray-500">Patent #</div>
         <div className="text-xs text-gray-500 col-span-2">
           Medicinal Ingredient
@@ -73,12 +73,12 @@ const DrugPatent = ({ drug }) => {
           </button>
         )}
 
-        <a
+        {drug.Patent[0]&&<a
           href={`https://www.ic.gc.ca/opic-cipo/cpd/eng/patent/${drug.Patent[0].patentNum}/summary.html?type=number_search&tabs1Index=tabs1_1`}
           className="underline text-blue-500"
         >
           {drug.Patent[0].patentNum}{' '}
-        </a>
+        </a>}
         <div className="col-span-2">{drug.medicinalIngredient}</div>
         <div>{drug.brandName}</div>
         <div>{drug.routeOfAdmin}</div>
@@ -89,11 +89,17 @@ const DrugPatent = ({ drug }) => {
           {new Date(drug?.Patent[0]?.expirationDate).toLocaleDateString()}
         </div>
         <div></div>
-        <div className="text-xs text-center text-gray-500 col-span-9 mt-2">
-          Therapeutic Class
-        </div>
-        <div></div>
-        <div className="text-center col-span-9">{drug.therapeuticClass}</div>
+        {drug.therapeuticClass && (
+          <>
+            <div className="text-xs text-center text-gray-500 col-span-9 mt-2">
+              Therapeutic Class
+            </div>
+            <div></div>
+            <div className="text-center col-span-9">
+              {drug.therapeuticClass}
+            </div>
+          </>
+        )}
       </div>
     </>
   )
