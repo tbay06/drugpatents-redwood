@@ -20,7 +20,7 @@ const Routes = () => {
 
       <Private unauthenticated="login">
         <Set wrap={AppLayout}>
-        <Route path="/" page={HomePage} name="home" />
+          <Route path="/" page={HomePage} name="home" />
           <Route path="/saved-patents" page={SavedPatentsPage} name="savedPatents" />
           <Route path="/drug-patents" page={DrugPatentsPage} name="drugPatents" />
         </Set>
