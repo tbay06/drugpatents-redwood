@@ -40,13 +40,17 @@ export const Failure = ({ error }) => (
 export const Success = ({ recentlyExpired }) => {
   const now = new Date()
   const soon = new Date(now.getFullYear() + 1, now.getMonth(), now.getDay())
-  return recentlyExpired.map((expired) => {
-    if (new Date(expired.Drug.Patent[0].expirationDate) <= soon) {
-      return (
-        <div className="py-1">
-          <DrugPatent key={expired.id} drug={expired.Drug} />
-        </div>
-      )
-    }
-  })
+  return (
+    <div className="flex flex-col">
+      {recentlyExpired.map((expired) => {
+        if (new Date(expired.Drug.Patent[0].expirationDate) <= soon) {
+          return (
+            <div className="p-1">
+              <DrugPatent key={expired.id} drug={expired.Drug} />
+            </div>
+          )
+        }
+      })}
+    </div>
+  )
 }

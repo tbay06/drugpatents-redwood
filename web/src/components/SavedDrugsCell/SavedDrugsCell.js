@@ -36,10 +36,13 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ savedDrugs }) => {
-  console.log(savedDrugs)
-  return savedDrugs.map((savedDrug) => (
-    <div className="py-1" key={savedDrug.Drug.id}>
-      <DrugPatent key={savedDrug.Drug.id} drug={savedDrug.Drug} />
+  return (
+    <div className="flex flex-wrap">
+      {savedDrugs.map((savedDrug) => (
+        <div className="p-1 w-1/3" key={savedDrug.Drug.id}>
+          <DrugPatent key={savedDrug.Drug.id} drug={savedDrug.Drug} />
+        </div>
+      ))}
     </div>
-  ))
+  )
 }

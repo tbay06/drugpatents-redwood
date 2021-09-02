@@ -21,6 +21,11 @@ export const schema = gql`
   type Query {
     patents: [Patent!]!
     patent(id: Int!): Patent
+    patentCount: Int!
+    expiredPatentCount: Int!
+    activePatentCount: Int!
+    expiringSoonCount: Int!
+    recentlyExpiredCount: Int!
     expiringSoon: [Patent!]!
     recentlyExpired: [Patent!]!
     totalPatentsPerCompany: [PatentsPerCompany!]!

@@ -6,6 +6,10 @@ export const beforeResolver = (rules) => {
   rules.add(requireAuth)
 }
 
+export const savedDrugsAdmin = () => {
+  return db.savedDrug.findMany()
+}
+
 export const savedDrugs = () => {
   return db.savedDrug.findMany()
 }

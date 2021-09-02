@@ -9,6 +9,7 @@ export const schema = gql`
   type Query {
     savedDrugs(userId: String!): [SavedDrug!]!
     savedDrug(id: Int!): SavedDrug
+    savedDrugsAdmin:[SavedDrug!]!
   }
 
   input CreateSavedDrugInput {

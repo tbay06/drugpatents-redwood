@@ -124,12 +124,6 @@ export type MutationUpdateSavedDrugArgs = {
   input: UpdateSavedDrugInput;
 };
 
-export type PaginatedDrugs = {
-  __typename?: 'PaginatedDrugs';
-  drugs: Array<Drug>;
-  count: Scalars['Int'];
-};
-
 export type Patent = {
   __typename?: 'Patent';
   id: Scalars['Int'];
@@ -156,16 +150,23 @@ export type PatentsPerCompanyCount = {
 
 export type Query = {
   __typename?: 'Query';
+  activePatentCount: Scalars['Int'];
   activePatentsPerCompany: Array<PatentsPerCompany>;
   drug?: Maybe<Drug>;
-  drugs?: Maybe<PaginatedDrugs>;
+  drugCount: Scalars['Int'];
+  drugs: Array<Drug>;
+  expiredPatentCount: Scalars['Int'];
   expiringSoon: Array<Patent>;
+  expiringSoonCount: Scalars['Int'];
   patent?: Maybe<Patent>;
+  patentCount: Scalars['Int'];
   patents: Array<Patent>;
   recentlyExpired: Array<Patent>;
+  recentlyExpiredCount: Scalars['Int'];
   redwood?: Maybe<Redwood>;
   savedDrug?: Maybe<SavedDrug>;
   savedDrugs: Array<SavedDrug>;
+  savedDrugsAdmin: Array<SavedDrug>;
   totalPatentsPerCompany: Array<PatentsPerCompany>;
 };
 
@@ -325,7 +326,6 @@ export type ResolversTypes = {
   JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>;
   Mutation: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  PaginatedDrugs: ResolverTypeWrapper<PaginatedDrugs>;
   Patent: ResolverTypeWrapper<Patent>;
   PatentsPerCompany: ResolverTypeWrapper<PatentsPerCompany>;
   PatentsPerCompanyCount: ResolverTypeWrapper<PatentsPerCompanyCount>;
@@ -352,7 +352,6 @@ export type ResolversParentTypes = {
   JSONObject: Scalars['JSONObject'];
   Mutation: {};
   Int: Scalars['Int'];
-  PaginatedDrugs: PaginatedDrugs;
   Patent: Patent;
   PatentsPerCompany: PatentsPerCompany;
   PatentsPerCompanyCount: PatentsPerCompanyCount;
@@ -410,12 +409,6 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateSavedDrug?: Resolver<ResolversTypes['SavedDrug'], ParentType, ContextType, RequireFields<MutationUpdateSavedDrugArgs, 'id' | 'input'>>;
 };
 
-export type PaginatedDrugsResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaginatedDrugs'] = ResolversParentTypes['PaginatedDrugs']> = {
-  drugs?: Resolver<Array<ResolversTypes['Drug']>, ParentType, ContextType>;
-  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type PatentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Patent'] = ResolversParentTypes['Patent']> = {
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   drugId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -441,16 +434,23 @@ export type PatentsPerCompanyCountResolvers<ContextType = any, ParentType extend
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  activePatentCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   activePatentsPerCompany?: Resolver<Array<ResolversTypes['PatentsPerCompany']>, ParentType, ContextType>;
   drug?: Resolver<Maybe<ResolversTypes['Drug']>, ParentType, ContextType, RequireFields<QueryDrugArgs, 'id'>>;
-  drugs?: Resolver<Maybe<ResolversTypes['PaginatedDrugs']>, ParentType, ContextType, RequireFields<QueryDrugsArgs, 'take' | 'skip'>>;
+  drugCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  drugs?: Resolver<Array<ResolversTypes['Drug']>, ParentType, ContextType, RequireFields<QueryDrugsArgs, 'take' | 'skip'>>;
+  expiredPatentCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   expiringSoon?: Resolver<Array<ResolversTypes['Patent']>, ParentType, ContextType>;
+  expiringSoonCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   patent?: Resolver<Maybe<ResolversTypes['Patent']>, ParentType, ContextType, RequireFields<QueryPatentArgs, 'id'>>;
+  patentCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   patents?: Resolver<Array<ResolversTypes['Patent']>, ParentType, ContextType>;
   recentlyExpired?: Resolver<Array<ResolversTypes['Patent']>, ParentType, ContextType>;
+  recentlyExpiredCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   redwood?: Resolver<Maybe<ResolversTypes['Redwood']>, ParentType, ContextType>;
   savedDrug?: Resolver<Maybe<ResolversTypes['SavedDrug']>, ParentType, ContextType, RequireFields<QuerySavedDrugArgs, 'id'>>;
   savedDrugs?: Resolver<Array<ResolversTypes['SavedDrug']>, ParentType, ContextType, RequireFields<QuerySavedDrugsArgs, 'userId'>>;
+  savedDrugsAdmin?: Resolver<Array<ResolversTypes['SavedDrug']>, ParentType, ContextType>;
   totalPatentsPerCompany?: Resolver<Array<ResolversTypes['PatentsPerCompany']>, ParentType, ContextType>;
 };
 
@@ -480,7 +480,6 @@ export type Resolvers<ContextType = any> = {
   JSON?: GraphQLScalarType;
   JSONObject?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
-  PaginatedDrugs?: PaginatedDrugsResolvers<ContextType>;
   Patent?: PatentResolvers<ContextType>;
   PatentsPerCompany?: PatentsPerCompanyResolvers<ContextType>;
   PatentsPerCompanyCount?: PatentsPerCompanyCountResolvers<ContextType>;

@@ -8,7 +8,7 @@ export const beforeResolver = (rules) => {
 
 export const patents = () => {
   return db.patent.findMany({
-    orderby: [{ expirationDate: 'desc' }],
+    orderBy: [{ expirationDate: 'desc' }],
   })
 }
 
@@ -33,6 +33,46 @@ export const updatePatent = ({ id, input }) => {
     where: { id },
   })
 }
+
+export const patentCount = () => {
+  return db.patent.count()
+}
+
+export const expiredPatentCount = () => {
+  return db.patent.count({
+    where: { expirationDate: { lte: new Date() } },
+  })
+}
+export const activePatentCount = () => {
+  return db.patent.count({
+    where: { expirationDate: { gte: new Date() } },
+  })
+}
+export const expiringSoonCount = () => {
+  const now = new Date()
+  const soon = new Date(now.getFullYear() + 1, now.getMonth(), now.getDay())
+  return db.patent.count({
+    where: {
+      AND: [
+        { expirationDate: { gte: now } },
+        { expirationDate: { lte: soon } },
+      ],
+    },
+  })
+}
+export const recentlyExpiredCount = () => {
+  const now = new Date()
+  const recent = new Date(now.getFullYear() - 1, now.getMonth(), now.getDay())
+  return db.patent.count({
+    where: {
+      AND: [
+        { expirationDate: { gte: recent } },
+        { expirationDate: { lte: now } },
+      ],
+    },
+  })
+}
+
 export const expiringSoon = () => {
   const now = new Date()
   const soon = new Date(now.getFullYear() + 1, now.getMonth(), now.getDay())
@@ -58,6 +98,7 @@ export const recentlyExpired = () => {
         { expirationDate: { lte: now } },
       ],
     },
+    orderBy: { expirationDate: 'desc' },
   })
 }
 export const totalPatentsPerCompany = () => {

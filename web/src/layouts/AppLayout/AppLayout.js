@@ -1,4 +1,3 @@
-import Card from 'src/components/Card'
 import Navbar from 'src/components/Navbar/Navbar'
 import SideNav from 'src/components/SideNav/SideNav'
 import { Toaster } from '@redwoodjs/web/toast'
@@ -29,7 +28,7 @@ const AppLayout = ({ children }) => {
             />
             {/* Replace with your content */}
 
-            <Card>{children}</Card>
+            {children}
 
             {/* /End replace */}
           </div>

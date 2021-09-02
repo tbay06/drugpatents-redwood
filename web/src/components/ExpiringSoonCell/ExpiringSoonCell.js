@@ -39,13 +39,17 @@ export const Failure = ({ error }) => (
 export const Success = ({ expiringSoon }) => {
   const now = new Date()
   const soon = new Date(now.getFullYear() + 1, now.getMonth(), now.getDay())
-  return expiringSoon.map((expiring) => {
-    if (new Date(expiring.Drug.Patent[0].expirationDate) <= soon) {
-      return (
-        <div className="py-1">
-          <DrugPatent key={expiring.id} drug={expiring.Drug} />
-        </div>
-      )
-    }
-  })
+  return (
+    <div className="flex flex-col">
+      {expiringSoon.map((expiring) => {
+        if (new Date(expiring.Drug.Patent[0].expirationDate) <= soon) {
+          return (
+            <div className="p-1">
+              <DrugPatent key={expiring.id} drug={expiring.Drug} />
+            </div>
+          )
+        }
+      })}
+    </div>
+  )
 }

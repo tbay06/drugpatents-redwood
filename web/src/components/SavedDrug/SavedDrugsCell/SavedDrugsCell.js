@@ -4,7 +4,7 @@ import SavedDrugs from 'src/components/SavedDrug/SavedDrugs'
 
 export const QUERY = gql`
   query FindSavedDrugs {
-    savedDrugs {
+    savedDrugs: savedDrugsAdmin {
       id
       userId
       drugId

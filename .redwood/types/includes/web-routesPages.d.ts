@@ -2,6 +2,7 @@
 import DrugPatentsPageType from 'C:/Users/tyler/Desktop/redwood-tutorial/web/src/pages/DrugPatentsPage/DrugPatentsPage'
 import FatalErrorPageType from 'C:/Users/tyler/Desktop/redwood-tutorial/web/src/pages/FatalErrorPage/FatalErrorPage'
 import HomePageType from 'C:/Users/tyler/Desktop/redwood-tutorial/web/src/pages/HomePage/HomePage'
+import LoginPageType from 'C:/Users/tyler/Desktop/redwood-tutorial/web/src/pages/LoginPage/LoginPage'
 import NotFoundPageType from 'C:/Users/tyler/Desktop/redwood-tutorial/web/src/pages/NotFoundPage/NotFoundPage'
 import SavedPatentsPageType from 'C:/Users/tyler/Desktop/redwood-tutorial/web/src/pages/SavedPatentsPage/SavedPatentsPage'
 import DrugDrugPageType from 'C:/Users/tyler/Desktop/redwood-tutorial/web/src/pages/Drug/DrugPage/DrugPage'
@@ -21,6 +22,7 @@ declare global {
   const DrugPatentsPage: typeof DrugPatentsPageType
   const FatalErrorPage: typeof FatalErrorPageType
   const HomePage: typeof HomePageType
+  const LoginPage: typeof LoginPageType
   const NotFoundPage: typeof NotFoundPageType
   const SavedPatentsPage: typeof SavedPatentsPageType
   const DrugDrugPage: typeof DrugDrugPageType
